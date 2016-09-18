@@ -1,0 +1,16 @@
+{
+  "name": "mdbot",
+  "version": "0.1.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "MICROSOFT_APP_ID='50ffced5-cd0e-4a67-967a-a350b6af354e' MICROSOFT_APP_PASSWORD='0ssdGUgC89MApWfrQgidRsd' node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "botbuilder": "^3.2.3",
+    "restify": "^4.1.1"
+  }
+}
