@@ -20,7 +20,7 @@ var connector = new builder.ChatConnector({
 var bot = new builder.UniversalBot(connector);
 var intents = new builder.IntentDialog();
 
-server.post('/api/messages', connector.listen());
+server.post('/', connector.listen());
 
 //=========================================================
 // Bots Dialogs
