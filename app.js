@@ -11,16 +11,22 @@ var server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, function () {
    console.log('%s listening to %s', server.name, server.url); 
 });
-  
+
+process.env.MICROSOFT_APP_ID = '94d53a41-1270-4300-a269-df272b6bee9e';
+process.env.MICROSOFT_APP_PASSWORD = 'Qa1Bf0pgpJytd2AgtpsT0er';
+
 // Create chat bot
 var connector = new builder.ChatConnector({
-    appId: process.env.MICROSOFT_APP_ID,
-    appPassword: process.env.MICROSOFT_APP_PASSWORD
+    appId: '94d53a41-1270-4300-a269-df272b6bee9e',
+    appPassword: 'Qa1Bf0pgpJytd2AgtpsT0er'
 });
+
+console.log(connector);
+
 var bot = new builder.UniversalBot(connector);
 var intents = new builder.IntentDialog();
 
-server.post('/', connector.listen());
+server.post('/api/messages', connector.listen());
 
 //=========================================================
 // Bots Dialogs
