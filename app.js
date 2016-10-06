@@ -66,17 +66,31 @@ intents.onDefault([
             proceed(session);
         } else {
             let lowerCaseText = session.message.text.toLowerCase();
-            if(lowerCaseText.indexOf('description')
-                || lowerCaseText.indexOf('help')
-                || lowerCaseText.indexOf('info')){
+            if(lowerCaseText.indexOf('--help')){
+                let val = getHelpValue(lowerCaseText);
+                if(!val.length && session.userData.stateObj['--help']){
+                    session.send('%s: %s', val, session.userData.stateObj['--help']);
+                    return;
+                }
+                if(session.userData.stateObj[val]
+                    && session.userData.stateObj[val]['--help']){
+                    session.send('%s: %s', val, session.userData.stateObj[val]['--help']);
+                    return;
+                }
+                session.send('I\'m not sure I understand... pick one of these:');
+                session.send(keysArr.join(', '));
+                session.send('If you\'re not sure what an item is, add  `--help` to your response for a description');
+                return;
             }
             if(!session.userData.state.length){
                 session.send('Hello %s!', session.userData.name);
                 session.send('What can I help you with?:');
                 session.send(keysArr.join(', '));
+                return;
             }else{
                 session.send('I\'m not sure I understand... pick one of these:');
                 session.send(keysArr.join(', '));
+                session.send('If you\'re not sure what an item is, add  `--help` to your response for a description');
             }
         }
     }
@@ -110,6 +124,8 @@ bot.dialog('/auth', [
 ]);
 
 
+// Helpers
+
 function proceed(session) {
     let answer = session.message.text;
     session.send('ok so "%s". Let me get that for you...', answer);
@@ -140,4 +156,11 @@ function search(value) {
         }
     }
     return hits;
+}
+
+
+function getHelpValue(fullText) {
+    let textArr = fullText.split('\\s+');
+    textArr = textArr.filter(text => text !== '--help');
+    return textArr.join(' ');
 }
