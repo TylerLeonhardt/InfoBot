@@ -12,13 +12,10 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
    console.log('%s listening to %s', server.name, server.url); 
 });
 
-process.env.MICROSOFT_APP_ID = '94d53a41-1270-4300-a269-df272b6bee9e';
-process.env.MICROSOFT_APP_PASSWORD = 'Qa1Bf0pgpJytd2AgtpsT0er';
-
 // Create chat bot
 var connector = new builder.ChatConnector({
-    appId: '94d53a41-1270-4300-a269-df272b6bee9e',
-    appPassword: 'Qa1Bf0pgpJytd2AgtpsT0er'
+    appId: process.env.MICROSOFT_APP_ID,
+    appPassword: process.env.MICROSOFT_APP_PASSWORD
 });
 
 console.log(connector);
