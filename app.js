@@ -84,22 +84,22 @@ intents.onDefault([
           session.send('%s: %s', val, session.userData.stateObj[val]);
           return;
         }
-        var str = 'I\'m not sure I understand... pick one of these:\n\n\n' +
+        var str = 'I\'m not sure I understand... pick one of these:\n\n\n\n' +
           getArrayString(keysArr) +
-          '\n\n\nIf you\'re not sure what an item is, add  `--help` to your response for a description';
+          '\n\n\n\nIf you\'re not sure what an item is, add  `--help` to your response for a description';
         session.send(str);
         return;
       }
       if(!session.userData.state.length){
         var str = 'Hello ' + session.userData.name + '!\n\n' +
-          'What can I help you with?:\n\n\n' +
+          'What can I help you with?:\n\n\n\n' +
           getArrayString(keysArr);
         session.send(str);
         return;
       }else{
-        var str = 'I\'m not sure I understand... pick one of these:\n\n\n' +
+        var str = 'I\'m not sure I understand... pick one of these:\n\n\n\n' +
           getArrayString(keysArr) +
-          '\n\n\nIf you\'re not sure what an item is, add  `--help` to your response for a description';
+          '\n\n\n\nIf you\'re not sure what an item is, add  `--help` to your response for a description';
         session.send(str);
       }
     }
@@ -138,14 +138,14 @@ function proceed(session) {
   var answer = session.message.text;
   session.send('ok so "%s". Let me get that for you...', answer);
   if(typeof session.userData.stateObj[answer] === 'string'){
-    var str = 'Here you go!\n\n\n' + session.userData.stateObj[answer] +
-      '\n\n\nLet me take you back to the main menu';
+    var str = 'Here you go!\n\n\n\n' + session.userData.stateObj[answer] +
+      '\n\n\n\nLet me take you back to the main menu';
     session.send(str);
     session.userData.stateObj = nav;
     session.userData.state = [];
   }else{
     //prompt for more
-    var str = 'Now pick from this list:\n\n\n' +
+    var str = 'Now pick from this list:\n\n\n\n' +
       getKeysString(session.userData.stateObj[answer]);
     session.send(str);
     session.userData.state.push(answer);
