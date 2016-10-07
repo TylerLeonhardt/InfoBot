@@ -1,0 +1,12 @@
+{
+    "xdp":[
+        "$xid = \"54eb075c-f5ca-4dfc-98be-92ec9353d823\"",
+        "$name = \"beyondgaehd\"",
+        "((Get-XblXmsProductDocument -Id $xid -SandboxId ProdNetRETAIL).Feed.InnerXml) > \"C:\\Users\\Public\\Desktop\\$($name).xml\""
+    ],
+    "get manifest":[
+        "$productFamily = \"Passes\"",
+        "$currentManifest = Get-MktProductFamilyManifest -ProductFamilyName $productFamily",
+        "ConvertTo-Json $currentManifest -Depth 100 -Compress > $(\"C:\\Users\\YOUR_ALIAS_HERE\\Desktop\\backup-\" + $productFamily + \".json\")"
+    ]
+}
