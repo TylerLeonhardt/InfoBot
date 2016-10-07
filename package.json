@@ -5,7 +5,6 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "local": "MICROSOFT_APP_ID='94d53a41-1270-4300-a269-df272b6bee9e' MICROSOFT_APP_PASSWORD='Qa1Bf0pgpJytd2AgtpsT0er' node app.js",
     "start": "node app.js"
   },
   "author": "",
@@ -13,5 +12,9 @@
   "dependencies": {
     "botbuilder": "^3.2.3",
     "restify": "^4.1.1"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-plugin-react": "^6.3.0"
   }
 }
