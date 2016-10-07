@@ -150,28 +150,15 @@ function proceed(session) {
 }
 
 function getKeysString(hash) {
-  return Object.keys(hash).filter(function(x){ return x != '--help' }).join(', ');
+  return Object.keys(hash).filter(function(x){ return x != '--help' }).join('\n\n');
 }
 
 function getArrayString(arr) {
   return arr.filter(function(x){ return x != '--help' }).join('\n\n');
 }
 
-function search(value) {
-  var hits = [];
-  for (var key in data) {
-    var regex = new RegExp(`^${key}`, 'i');
-    if (regex.exec(value)) {
-
-      hits.push(data[key]);
-    }
-  }
-  return hits;
-}
-
-
 function getHelpValue(fullText) {
   var textArr = fullText.split('\\s+');
-  textArr = textArr.filter(text => text !== '--help');
-  return textArr.join(' ');
+  textArr = textArr.filter(function(text){ text !== '--help' });
+  return textArr.join('');
 }
