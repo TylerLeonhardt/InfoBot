@@ -65,7 +65,7 @@ intents.onDefault([
     }
 
     var keysArr = Object.keys(session.userData.stateObj);
-    if (keysArr.indexOf(session.message.text) != -1){
+    if (keysArr.indexOf(session.message.text) != -1 && session.message.text != '--help'){
       proceed(session);
     } else {
       var lowerCaseText = session.message.text.toLowerCase();
@@ -85,18 +85,18 @@ intents.onDefault([
           return;
         }
         session.send('I\'m not sure I understand... pick one of these:');
-        session.send(keysArr.join(', '));
+        session.send(getArrayString(keysArr));
         session.send('If you\'re not sure what an item is, add  `--help` to your response for a description');
         return;
       }
       if(!session.userData.state.length){
         session.send('Hello %s!', session.userData.name);
         session.send('What can I help you with?:');
-        session.send(keysArr.join(', '));
+        session.send(getArrayString(keysArr));
         return;
       }else{
         session.send('I\'m not sure I understand... pick one of these:');
-        session.send(keysArr.join(', '));
+        session.send(getArrayString(keysArr));
         session.send('If you\'re not sure what an item is, add  `--help` to your response for a description');
       }
     }
@@ -150,13 +150,19 @@ function proceed(session) {
   }else{
     //prompt for more
     session.send('Now pick from this list:');
-    session.send(Object.keys(session.userData.stateObj[answer]).join(', '));
+    session.send(getKeysString(session.userData.stateObj[answer]));
     session.userData.state.push(answer);
     session.userData.stateObj = session.userData.stateObj[answer];
   }
 }
 
+function getKeysString(hash) {
+  return Object.keys(hash).filter(function(x){ return x != '--help' }).join(', ');
+}
 
+function getArrayString(arr) {
+  return arr.filter(function(x){ return x != '--help' }).join(', ');
+}
 
 function search(value) {
   var hits = [];
