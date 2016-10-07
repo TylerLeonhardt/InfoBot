@@ -1,17 +1,11 @@
 {
-    "option1": {
-        "option3":{
-            "option7":"wow1",
-            "option8":"wow2"
-        },
-        "option4":{
-            "option9":"wow3",
-            "option10":"wow4",
-            "option11":"wow7"
-        }
+    "cmdlets":{
+        "--help":"These are useful Toolbox cmdlets",
+        "get an xdp document":"$xid = \"54eb075c-f5ca-4dfc-98be-92ec9353d823\"\n\n$name = \"beyondgaehd\"\n\n((Get-XblXmsProductDocument -Id $xid -SandboxId ProdNetRETAIL).Feed.InnerXml) > \"C:\\Users\\Public\\Desktop\\$($name).xml\"\n\n",
+        "get a manifest":"$productFamily = \"Passes\"\n\n$currentManifest = Get-MktProductFamilyManifest -ProductFamilyName $productFamily\n\nConvertTo-Json $currentManifest -Depth 100 -Compress > $(\"C:\\Users\\YOUR_ALIAS_HERE\\Desktop\\backup-\" + $productFamily + \".json\")\n\n"
     },
-    "option2":{
-        "option5":"wow5",
-        "option6":"wow6"
+    "acronyms":{
+        "PD":"Point Dev - A person who is on 'on call'",
+        "DM":"Deployment Master - A person in charge of this week's deployments"
     }
 }

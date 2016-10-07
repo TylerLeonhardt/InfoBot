@@ -56,6 +56,9 @@ intents.onDefault([
     }
   },
   function (session, results) {
+    if (!session.userData.authed || !session.userData.name) {
+      return;
+    }
     if(session.userData.state == undefined){
       session.userData.state = [];
       session.userData.stateObj = nav;
@@ -123,6 +126,11 @@ bot.dialog('/auth', [
   },
   function (session, results) {
     session.userData.authed = results.response == 'pass';
+    if(session.userData.authed){
+      session.send('Success! You can now ask for options!');
+    }else{
+      session.send('Try again.');
+    }
     session.endDialog();
   }
 ]);
