@@ -69,7 +69,7 @@ intents.onDefault([
       proceed(session);
     } else {
       var lowerCaseText = session.message.text.toLowerCase();
-      if(lowerCaseText.indexOf('--help')){
+      if(lowerCaseText.indexOf('--help') != -1){
         var val = getHelpValue(lowerCaseText);
         if(!val.length && session.userData.stateObj['--help']){
           session.send('%s: %s', val, session.userData.stateObj['--help']);
