@@ -72,7 +72,7 @@ intents.onDefault([
       if(lowerCaseText.indexOf('--help') != -1){
         var val = getHelpValue(lowerCaseText);
         if(!val.length && session.userData.stateObj['--help']){
-          session.send('%s: %s', val, session.userData.stateObj['--help']);
+          session.send('%s: %s', session.userData.state[session.userData.state.length - 1], session.userData.stateObj['--help']);
           return;
         }
         if(session.userData.stateObj[val]
@@ -103,13 +103,6 @@ intents.onDefault([
   }
 ]);
 
-// intents.matches(/^list/i, [
-//     session => {
-//         var keysArr = Object.keys(session.userData.stateObj);
-//         session.send(keys.Arr.join('\n'));
-//     }
-// ])
-
 bot.dialog('/profile', [
   function (session) {
     builder.Prompts.text(session, 'Hi! What is your name?');
@@ -125,7 +118,7 @@ bot.dialog('/auth', [
     builder.Prompts.text(session, 'What is the password?');
   },
   function (session, results) {
-    session.userData.authed = results.response == 'pass';
+    session.userData.authed = results.response == process.env.BOT_PASSWORD;
     if(session.userData.authed){
       session.send('Success! You can now ask for options!');
     }else{
@@ -161,7 +154,7 @@ function getKeysString(hash) {
 }
 
 function getArrayString(arr) {
-  return arr.filter(function(x){ return x != '--help' }).join(', ');
+  return arr.filter(function(x){ return x != '--help' }).join('\n\n');
 }
 
 function search(value) {
