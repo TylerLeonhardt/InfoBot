@@ -6,7 +6,7 @@ Info Bot is a dead-simple way to turn any sort of information into an interactiv
 
 #### Example
 
-Inside of your nav.json is all the logic you would need for your personalized Info Bot! 
+Inside of your nav.json is all the logic you would need for your personalized Info Bot!
 ##### nav.json
 ```json
 {
@@ -18,7 +18,7 @@ Inside of your nav.json is all the logic you would need for your personalized In
         "option4":{
             "option9":"wow3",
             "option10":"wow4",
-            "option11":"wow7"  
+            "option11":"wow7"
         }
     },
     "option2":{
