@@ -84,20 +84,23 @@ intents.onDefault([
           session.send('%s: %s', val, session.userData.stateObj[val]);
           return;
         }
-        session.send('I\'m not sure I understand... pick one of these:');
-        session.send(getArrayString(keysArr));
-        session.send('If you\'re not sure what an item is, add  `--help` to your response for a description');
+        var str = 'I\'m not sure I understand... pick one of these:\n\n\n' +
+          getArrayString(keysArr) +
+          '\n\n\nIf you\'re not sure what an item is, add  `--help` to your response for a description';
+        session.send(str);
         return;
       }
       if(!session.userData.state.length){
-        session.send('Hello %s!', session.userData.name);
-        session.send('What can I help you with?:');
-        session.send(getArrayString(keysArr));
+        var str = 'Hello ' + session.userData.name + '!\n\n' +
+          'What can I help you with?:\n\n\n' +
+          getArrayString(keysArr);
+        session.send(str);
         return;
       }else{
-        session.send('I\'m not sure I understand... pick one of these:');
-        session.send(getArrayString(keysArr));
-        session.send('If you\'re not sure what an item is, add  `--help` to your response for a description');
+        var str = 'I\'m not sure I understand... pick one of these:\n\n\n' +
+          getArrayString(keysArr) +
+          '\n\n\nIf you\'re not sure what an item is, add  `--help` to your response for a description';
+        session.send(str);
       }
     }
   }
@@ -135,15 +138,16 @@ function proceed(session) {
   var answer = session.message.text;
   session.send('ok so "%s". Let me get that for you...', answer);
   if(typeof session.userData.stateObj[answer] === 'string'){
-    session.send('Here you go!');
-    session.send(session.userData.stateObj[answer]);
-    session.send('Let me take you back to the main menu');
+    var str = 'Here you go!\n\n\n' + session.userData.stateObj[answer] +
+      '\n\n\nLet me take you back to the main menu';
+    session.send(str);
     session.userData.stateObj = nav;
     session.userData.state = [];
   }else{
     //prompt for more
-    session.send('Now pick from this list:');
-    session.send(getKeysString(session.userData.stateObj[answer]));
+    var str = 'Now pick from this list:\n\n\n' +
+      getKeysString(session.userData.stateObj[answer]);
+    session.send(str);
     session.userData.state.push(answer);
     session.userData.stateObj = session.userData.stateObj[answer];
   }
