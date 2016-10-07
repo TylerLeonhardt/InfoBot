@@ -162,7 +162,7 @@ function getArrayString(arr) {
 }
 
 function getHelpValue(fullText) {
-  var textArr = fullText.split('\s+');
+  var textArr = fullText.split(/\s+/);
   textArr = textArr.filter(function(text){ text !== '--help' });
   return textArr.join('');
 }
