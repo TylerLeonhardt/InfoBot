@@ -131,7 +131,7 @@ bot.dialog('/auth', [
 // Helpers
 
 function proceed(session) {
-  let answer = session.message.text;
+  var answer = session.message.text;
   session.send('ok so "%s". Let me get that for you...', answer);
   if(typeof session.userData.stateObj[answer] === 'string'){
     session.send('Here you go!');
@@ -164,7 +164,7 @@ function search(value) {
 
 
 function getHelpValue(fullText) {
-  let textArr = fullText.split('\\s+');
+  var textArr = fullText.split('\\s+');
   textArr = textArr.filter(text => text !== '--help');
   return textArr.join(' ');
 }
