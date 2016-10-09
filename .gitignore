@@ -1,3 +1,5 @@
 node_modules/
 .DS_Store
 npm-debug.log
+./run-local.sh
+./nav.json
