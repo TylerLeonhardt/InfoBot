@@ -1,17 +1,20 @@
 {
-    "option1": {
-        "option3":{
-            "option7":"wow1",
-            "option8":"wow2"
+    "programming languages": {
+        "--help":"different types of programming languages",
+        "object oriented":{
+            "--help":"A language where the objects are the first class citizens",
+            "Java":"lorem ipson salt",
+            "C#":"lorem ipson salt"
         },
-        "option4":{
-            "option9":"wow3",
-            "option10":"wow4",
-            "option11":"wow7"
+        "functional":{
+            "Haskell":"lorem ipson salt",
+            "Elixer":"lorem ipson salt"
         }
     },
-    "option2":{
-        "option5":"wow5",
-        "option6":"wow6"
+    "memes":{
+        "--help":"you already know what these are",
+        "Harambe":"lorem ipson salt",
+        "Pepe":"lorem ipson salt",
+        "dat boi":"lorem ipson salt"
     }
 }
