@@ -1,6 +1,19 @@
 const restify = require('restify');
 const builder = require('botbuilder');
-const nav = require('./nav');
+const chokidar = require('chokidar');
+let nav = require('./nav');
+
+// Initialize watcher.
+const watcher = chokidar.watch('nav.json', {
+  persistent: true,
+});
+
+watcher.on('change', () => {
+  /* eslint-disable */
+  nav = require('./nav');
+  console.log('Nav reloaded.');
+  /* eslint-enable */
+});
 
 //= ========================================================
 // Bot Setup
@@ -20,6 +33,9 @@ const bot = new builder.UniversalBot(connector);
 const intents = new builder.IntentDialog();
 
 server.post('/api/messages', connector.listen());
+
+// eslint-disable-next-line
+console.log('InfoBot started.');
 
 //= ========================================================
 // Helpers
