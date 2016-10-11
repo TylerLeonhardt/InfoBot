@@ -59,7 +59,7 @@ function reset(session) {
     getArrayString(Object.keys(session.userData.stateObj)) +
     '\n\n +++++++++ \n\nIf you\'re not sure what an item is, ' +
     'add  `--help` to your response for a description\n\n' +
-    'If you ever need to start over, just say "reset"';
+    'If you ever need to start over, just say "start over" or "reset"';
   session.send(str);
 }
 
@@ -68,10 +68,9 @@ function proceed(session) {
   session.send('ok so "%s". Let me get that for you...', answer);
   if (typeof session.userData.stateObj[answer] === 'string') {
     const str = 'Here you go!\n\n +++++++++ \n\n' + session.userData.stateObj[answer] +
-      '\n\n +++++++++ \n\nLet me take you back to the main menu';
+      '\n\n +++++++++';
     session.send(str);
-    session.userData.stateObj = nav;
-    session.userData.state = [];
+    reset(session);
   } else if (Array.isArray(session.userData.stateObj[answer])) {
     const str = 'Here you go!\n\n +++++++++ \n\n' + session.userData.stateObj[answer].join('\n\n') +
       '\n\n +++++++++';
@@ -102,13 +101,7 @@ intents.matches(/^change name/i, [
   },
 ]);
 
-intents.matches(/^reset/i, [
-  (session) => {
-    reset(session)
-  }
-]);
-
-intents.matches(/^quit/i, [
+intents.matches(/(start over|reset|quit)/ig, [
   (session) => {
     reset(session)
   }
