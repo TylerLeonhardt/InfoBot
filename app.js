@@ -43,7 +43,7 @@ console.log('InfoBot started.');
 //= ========================================================
 
 function getArrayString(arr) {
-  return arr.filter((x) => x !== '--help').join('\n\n');
+  return '*' + arr.filter((x) => x !== '--help').join('\n\n*');
 }
 
 function getHelpValue(fullText) {
@@ -72,8 +72,8 @@ function proceed(session) {
     session.send(str);
     reset(session);
   } else if (Array.isArray(session.userData.stateObj[answer])) {
-    const str = 'Here you go!\n\n +++++++++ \n\n' + session.userData.stateObj[answer].join('\n\n') +
-      '\n\n +++++++++';
+    const str = 'Here you go!\n\n ```\n\n' + session.userData.stateObj[answer].join('\n\n') +
+      '\n\n```';
     session.send(str);
     reset(session);
   } else {
