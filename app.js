@@ -56,7 +56,7 @@ function reset(session) {
   session.userData.stateObj = nav;
   session.userData.state = [];
   const str = 'Taking you back to the main menu... pick one of these:\n\n +++++++++ \n\n' +
-    getArrayString(keysArr) +
+    getArrayString(Object.keys(session.userData.stateObj)) +
     '\n\n +++++++++ \n\nIf you\'re not sure what an item is, ' +
     'add  `--help` to your response for a description';
   session.send(str);
