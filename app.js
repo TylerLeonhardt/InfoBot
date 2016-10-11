@@ -1,20 +1,6 @@
 const restify = require('restify');
 const builder = require('botbuilder');
-const chokidar = require('chokidar');
 let nav = require('./nav');
-
-// Initialize watcher.
-const watcher = chokidar.watch('nav.json', {
-  persistent: true,
-});
-
-watcher.on('change', () => {
-  delete require.cache[require.resolve('./nav')];
-  /* eslint-disable */
-  nav = require('./nav');
-  console.log('Nav reloaded.');
-  /* eslint-enable */
-});
 
 //= ========================================================
 // Bot Setup
