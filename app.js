@@ -43,7 +43,7 @@ console.log('InfoBot started.');
 //= ========================================================
 
 function getArrayString(arr) {
-  return '*' + arr.filter((x) => x !== '--help').join('\n\n*');
+  return '* ' + arr.filter((x) => x !== '--help').join('\n\n* ');
 }
 
 function getHelpValue(fullText) {
