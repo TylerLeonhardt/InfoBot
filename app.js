@@ -64,6 +64,12 @@ function proceed(session) {
     session.send(str);
     session.userData.stateObj = nav;
     session.userData.state = [];
+  } else if (Array.isArray(session.userData.stateObj[answer])) {
+    const str = 'Here you go!\n\n +++++++++ \n\n' + session.userData.stateObj[answer].join('\n\n') +
+      '\n\n +++++++++ \n\nLet me take you back to the main menu';
+    session.send(str);
+    session.userData.stateObj = nav;
+    session.userData.state = [];
   } else {
     // prompt for more
     const str = 'Now pick from this list:\n\n +++++++++ \n\n' +
