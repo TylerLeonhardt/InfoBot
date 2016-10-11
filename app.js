@@ -42,10 +42,6 @@ console.log('InfoBot started.');
 // Helpers
 //= ========================================================
 
-function getKeysString(hash) {
-  return Object.keys(hash).filter((x) => x !== '--help').join('\n\n');
-}
-
 function getArrayString(arr) {
   return arr.filter((x) => x !== '--help').join('\n\n');
 }
@@ -54,6 +50,16 @@ function getHelpValue(fullText) {
   let textArr = fullText.split(/[ \t\n\x0B\f\r]/);
   textArr = textArr.filter((text) => text !== '--help' && text !== '');
   return textArr.join('');
+}
+
+function reset(session) {
+  session.userData.stateObj = nav;
+  session.userData.state = [];
+  const str = 'Taking you back to the main menu... pick one of these:\n\n +++++++++ \n\n' +
+    getArrayString(keysArr) +
+    '\n\n +++++++++ \n\nIf you\'re not sure what an item is, ' +
+    'add  `--help` to your response for a description';
+  session.send(str);
 }
 
 function proceed(session) {
@@ -67,14 +73,13 @@ function proceed(session) {
     session.userData.state = [];
   } else if (Array.isArray(session.userData.stateObj[answer])) {
     const str = 'Here you go!\n\n +++++++++ \n\n' + session.userData.stateObj[answer].join('\n\n') +
-      '\n\n +++++++++ \n\nLet me take you back to the main menu';
+      '\n\n +++++++++';
     session.send(str);
-    session.userData.stateObj = nav;
-    session.userData.state = [];
+    reset(session);
   } else {
     // prompt for more
     const str = 'Now pick from this list:\n\n +++++++++ \n\n' +
-      getKeysString(session.userData.stateObj[answer]);
+      getArrayString(Object.keys(session.userData.stateObj[answer]));
     session.send(str);
     session.userData.state.push(answer);
     session.userData.stateObj = session.userData.stateObj[answer];
@@ -94,6 +99,18 @@ intents.matches(/^change name/i, [
   (session) => {
     session.send('Ok... Changed your name to %s', session.userData.name);
   },
+]);
+
+intents.matches(/^reset/i, [
+  (session) => {
+    reset(session)
+  }
+]);
+
+intents.matches(/^quit/i, [
+  (session) => {
+    reset(session)
+  }
 ]);
 
 intents.onDefault([
