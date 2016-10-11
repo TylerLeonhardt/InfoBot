@@ -55,9 +55,9 @@ function getHelpValue(fullText) {
 function reset(session) {
   session.userData.stateObj = nav;
   session.userData.state = [];
-  const str = 'Taking you back to the main menu... pick one of these:\n\n +++++++++ \n\n' +
+  const str = 'Taking you back to the main menu... pick one of these:\n\n' +
     getArrayString(Object.keys(session.userData.stateObj)) +
-    '\n\n +++++++++ \n\nIf you\'re not sure what an item is, ' +
+    '\n\nIf you\'re not sure what an item is, ' +
     'add  `--help` to your response for a description\n\n' +
     'If you ever need to start over, just say "start over" or "reset"';
   session.send(str);
@@ -67,18 +67,18 @@ function proceed(session) {
   const answer = session.message.text;
   session.send('ok so "%s". Let me get that for you...', answer);
   if (typeof session.userData.stateObj[answer] === 'string') {
-    const str = 'Here you go!\n\n +++++++++ \n\n' + session.userData.stateObj[answer] +
-      '\n\n +++++++++';
+    const str = 'Here you go!\n\n ```\n' + session.userData.stateObj[answer] +
+      '\n```';
     session.send(str);
     reset(session);
   } else if (Array.isArray(session.userData.stateObj[answer])) {
-    const str = 'Here you go!\n\n ```\n\n' + session.userData.stateObj[answer].join('\n\n') +
-      '\n\n```';
+    const str = 'Here you go!\n\n ```\n' + session.userData.stateObj[answer].join('\n') +
+      '\n```';
     session.send(str);
     reset(session);
   } else {
     // prompt for more
-    const str = 'Now pick from this list:\n\n +++++++++ \n\n' +
+    const str = 'Now pick from this list:\n\n' +
       getArrayString(Object.keys(session.userData.stateObj[answer]));
     session.send(str);
     session.userData.state.push(answer);
@@ -152,24 +152,25 @@ intents.onDefault([
           session.send('%s: %s', val, session.userData.stateObj[val]);
           return;
         }
-        const str = 'I\'m not sure I understand... pick one of these:\n\n +++++++++ \n\n' +
+        const str = 'I\'m not sure I understand... pick one of these:\n\n' +
           getArrayString(keysArr) +
-          '\n\n +++++++++ \n\nIf you\'re not sure what an item is, ' +
+          '\n\nIf you\'re not sure what an item is, ' +
           'add  `--help` to your response for a description';
         session.send(str);
         return;
       }
       if (!session.userData.state.length) {
         const str = 'Hello ' + session.userData.name + '!\n\n' +
-          'What can I help you with?:\n\n +++++++++ \n\n' +
+          'What can I help you with?:\n\n' +
           getArrayString(keysArr);
         session.send(str);
         return;
       }
-      const str = 'I\'m not sure I understand... pick one of these:\n\n +++++++++ \n\n' +
+      const str = 'I\'m not sure I understand... pick one of these:\n\n' +
         getArrayString(keysArr) +
-        '\n\n +++++++++ \n\nIf you\'re not sure what an item is, ' +
-        'add  `--help` to your response for a description';
+        '\n\nIf you\'re not sure what an item is, ' +
+        'add  `--help` to your response for a description' +
+        'If you ever need to start over, just say "start over" or "reset"';
       session.send(str);
     }
   },
