@@ -9,6 +9,7 @@ const watcher = chokidar.watch('nav.json', {
 });
 
 watcher.on('change', () => {
+  delete require.cache[require.resolve('./nav')];
   /* eslint-disable */
   nav = require('./nav');
   console.log('Nav reloaded.');
