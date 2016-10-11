@@ -58,7 +58,8 @@ function reset(session) {
   const str = 'Taking you back to the main menu... pick one of these:\n\n +++++++++ \n\n' +
     getArrayString(Object.keys(session.userData.stateObj)) +
     '\n\n +++++++++ \n\nIf you\'re not sure what an item is, ' +
-    'add  `--help` to your response for a description';
+    'add  `--help` to your response for a description\n\n' +
+    'If you ever need to start over, just say "reset"';
   session.send(str);
 }
 
